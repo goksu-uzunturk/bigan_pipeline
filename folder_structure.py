@@ -8,7 +8,7 @@ src_zip = "src.zip"         # Replace with actual path if needed
 pipeline_zip = "pipeline.zip" # Replace with actual path if needed
 
 # Define extraction directories
-src_extracted = "src"
+src_extracted = "src_outer"
 pipeline_extracted = "pipeline"
 
 # Function to unzip a file
@@ -27,10 +27,13 @@ unzip_file(pipeline_zip, pipeline_extracted)
 # Step 2: Install requirements.txt if present
 requirements_path = "requirements_pipeline.txt"
 if os.path.exists(requirements_path):
-    subprocess.run(["pip", "install", "-r", requirements_path], check=True)
-    print("Installed dependencies from requirements.txt")
+    subprocess.run('mv src_outer/* .',shell=True,check=True)
+    subprocess.run('rm -r src_outer/',shell=True,check=True)
+    #subprocess.run(["pip", "install", "-r", requirements_path], check=True)
+    #print("Installed dependencies from requirements.txt")
 else:
-    print("requirements.txt not found!")
+    pass
+    #print("requirements.txt not found!")
 
 # Step 3: Create models directory inside the extracted pipeline folder
 models_path = os.path.join(pipeline_extracted, "models")
